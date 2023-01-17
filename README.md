@@ -1,64 +1,97 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+Attendence
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A brief description of what this project does and who it's for
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Acknowledgements
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+ - [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
+ - [Awesome README](https://github.com/matiassingers/awesome-readme)
+ - [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+## 🚀 About Me
+I'm a full stack developer...
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+![SS-4](https://user-images.githubusercontent.com/97294949/212972604-41ee915e-bea7-41bb-84ad-9d0d44873584.GIF)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-### Premium Partners
+## Installation
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Install attendence with Gitbash
 
-## Contributing
+```bash
+  php artisan make:controller FrontedController
+  php artisan make:controller HomeController
+  php artisan make:controller PaymentController
+  php artisan make:controller ProductController
+  php artisan make:controller PurchaseController
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+  php artisan make:Model Payment -m
+  php artisan make:Model Product -m
+  php artisan make:Model Parchase -m
 
-## Code of Conduct
+  //Route
+  <?php
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\UserController;
 
-## Security Vulnerabilities
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+//Route::get('/', function () {
+    //return view('welcome');
+//});
 
-## License
+Auth::routes();
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Route::get('/home', [HomeController::class,'index'])->name('home');
+Route::get('/', [FrontendController::class,'welcome']);
+Route::get('/about', [FrontendController::class,'about']);
+Route::get('/contact', [FrontendController::class,'contact']);
+Route::post('/add/users', [HomeController::class,'add_users']);
+
+//Products
+Route::get('/add/product',[ProductController::class, 'index']);
+Route::post('/product/insert', [ProductController::class,'insert']);
+Route::get('/product/edit/{product_id}', [ProductController::class,'edit']);
+Route::post('/product/update', [ProductController::class,'update']);
+Route::get('/product/delete/{product_id}', [ProductController::class,'delete']);
+Route::get('/product/view', [ProductController::class,'product_view']);
+
+
+//Payment
+Route::get('/add/payment',[PaymentController::class, 'index']);
+Route::post('/payment/insert', [PaymentController::class,'insert']);
+Route::get('/payment/edit/{payment_id}', [PaymentController::class,'edit']);
+Route::post('/payment/update', [PaymentController::class,'update']);
+Route::get('/payment/delete/{payment_id}', [PaymentController::class,'delete']);
+Route::get('/payment/view',[PaymentController::class,'payment_view']);
+//Purchase
+Route::get('/add/purchase',[PurchaseController::class, 'index']);
+Route::post('/purchase/insert', [PurchaseController::class,'insert']);
+Route::get('/purchase/edit/{purchase_id}', [PurchaseController::class,'edit']);
+Route::post('/purchase/update', [PurchaseController::class,'update']);
+Route::get('/purchase/delete/{purchase_id}', [PurchaseController::class,'delete']);
+Route::get('/purchase/view', [PurchaseController::class,'purchase_view']);
+
+
+
+    
